@@ -10,6 +10,10 @@
     "autoload": {
         "psr-4": {
             "Fizzday\\": "Fizzday/"
-        }
+        },
+        "classmap": [
+            "app/Controllers",
+            "app/Models"
+        ]
     }
 }
