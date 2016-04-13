@@ -1,0 +1,11 @@
+{
+    "name": "fizzday/fizzday",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "fizzday",
+            "email": "fizzday@yeah.net"
+        }
+    ],
+    "require": {}
+}
