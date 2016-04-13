@@ -54,3 +54,7 @@ composer init, 初始化框架目录
 
 > v0.11
 route complate, 路由完善
+
+
+> v0.12
+controller complate, 控制器与路由联通
