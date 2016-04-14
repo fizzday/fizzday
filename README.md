@@ -47,9 +47,9 @@ User::find(1);
 User::where(['name','like','fizz%'])->getAll();
 
 // 原生语句(查询)
-db::query("SELECT * FROM `user` where id>?", [1]);
+db::query("SELECT * FROM `user` where `id`>?", [1]);
 // 或者
-db::query("SELECT * FROM `user` where id>1");
+db::query("SELECT * FROM `user` where `id`>1");
 
 // 原生语句(非查询)
 db::execute("UPDATE `user` SET `age`=?", [25]);
@@ -57,9 +57,9 @@ db::execute("UPDATE `user` SET `age`=?", [25]);
 db::execute("UPDATE `user` SET `age`=25");
 
 // 长查询,支持多种模式(limit(offset, limit))
-db::table('user')->fields('id','name','age')->where(['id','>',1])->group('age')->order('`age` asc, id desc')->limit(10)->getAll();
+db::table('user')->fields('id','name','age')->where(['id','>',1])->group('age')->order('`age` asc, `id` desc')->limit(10)->getAll();
 // 或者
-User::fields('id','name','age')->where(['id','>',1])->group('age')->order('`age` asc, id desc')->limit(10)->getAll();
+User::fields('id','name','age')->where(['id','>',1])->group('age')->order('`age` asc, `id` desc')->limit(10)->getAll();
 ```
 
 说明:
