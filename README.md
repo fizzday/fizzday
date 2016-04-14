@@ -1,13 +1,31 @@
 # fizzday
 自由, 快捷, 高效, 灵活... 没错, 这就是fizzday, 一个小巧玲珑却又相当强悍的框架, 你值得拥有
+
+---
+
+> 当前版本正在转移和不断的完善中, 切勿用于生产环境...
 ## 优雅的路由
 ```
+/**
+ * @api: /test
+ * @type {[type]}
+ */
 Rout::get('test', 'HomeController@index');
 
+/**
+ * @api: /test [post]
+ * @param  {[type]} )
+ * @return {[type]}   [description]
+ */
 Rout::post('test', function() {
     echo 'test post route';
 });
 
+/**
+ * api: /admin/test
+ * @param  {[type]} )
+ * @return {[type]}   [description]
+ */
 Rout::group('admin', function() {
     Rout::get('test', 'Admin\AdminController@test');
 });
@@ -34,7 +52,9 @@ db::execute("UPDATE `user` SET `age`=?", [25]);
 db::execute("UPDATE `user` SET `age`=25");
 
 // 长查询,支持多种模式(limit(offset, limit))
-db::table('user')->fields('id','name','age')->where(['id','>',1])->group('age')->order('`age` asc, id desc')->limit(10);
+db::table('user')->fields('id','name','age')->where(['id','>',1])->group('age')->order('`age` asc, id desc')->limit(10)->getAll();
+// 或者
+User::fields('id','name','age')->where(['id','>',1])->group('age')->order('`age` asc, id desc')->limit(10)->getAll();
 ```
 说明:
 1. 由于涉及到灵活和自由扩展性, 暂时没有加入联表等复杂查询的封装, 可以使用原生查询来完成这些工作.
@@ -44,7 +64,7 @@ db::table('user')->fields('id','name','age')->where(['id','>',1])->group('age')-
 ```
 view::make('home.test')
     ->with('name', 'fizzday')
-    ->with('age', 26);
+    ->withAge(26);
 ```
 
 ## 版本说明
@@ -58,3 +78,7 @@ route complate, 路由完善
 
 > v0.12
 controller complate, 控制器与路由联通
+
+
+> v0.13
+view complate, 视图与控制器与路由联通

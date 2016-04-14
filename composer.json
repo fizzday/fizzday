@@ -11,6 +11,7 @@
         "psr-4": {
             "Fizzday\\": "Fizzday/"
         },
+        "files": ["Fizzday/Helper/Helper.php"],
         "classmap": [
             "app/Controllers",
             "app/Models"

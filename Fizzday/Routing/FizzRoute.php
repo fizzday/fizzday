@@ -1,9 +1,4 @@
 <?php
-/**
- * User: Fizzday
- * Date: 2016/3/27
- * Time: 14:30
- */
 namespace Fizzday\Routing;
 
 /**
@@ -15,7 +10,8 @@ namespace Fizzday\Routing;
  * @method static Router head(string $route, Callable $callback)
  * @method static Router group(string $route, Callable $callback)
  */
-class FizzRoute {
+class FizzRoute
+{
 
     public static $routes = array();
 
@@ -32,15 +28,6 @@ class FizzRoute {
     public static $error_callback;
 
     public static $baseroute = '';
-
-    /**
-     * add filter for your routes
-     */
-    public static function filter($filter, $result) {
-        if ($filter()) {
-            $result();
-        }
-    }
 
     /**
      * Defines a route w/ callback and method
@@ -88,10 +75,8 @@ class FizzRoute {
 
     /**
      * Runs the callback for the given request
-     *
      * $after: Processor After. It will process the value returned by Controller.
      * Example: View@process
-     *
      */
     public static function dispatch($after=null)
     {
