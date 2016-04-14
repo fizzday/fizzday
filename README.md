@@ -4,8 +4,11 @@
 ---
 
 > 当前版本正在转移和不断的完善中, 切勿用于生产环境...
+
+
 ## 优雅的路由
-```
+```php
+<?php
 /**
  * @api: /test
  * @type {[type]}
@@ -32,7 +35,9 @@ Rout::group('admin', function() {
 ```
 
 ## 小巧强悍的ORM(兼容常规模式,AR模式,链式操作)
-```
+```php
+<?php
+
 // 链式操作
 db::table('user')->where(['id', '=', 1])->get();
 db::getAll('user', ['id','>',1]);
@@ -56,12 +61,14 @@ db::table('user')->fields('id','name','age')->where(['id','>',1])->group('age')-
 // 或者
 User::fields('id','name','age')->where(['id','>',1])->group('age')->order('`age` asc, id desc')->limit(10)->getAll();
 ```
+
 说明:
 1. 由于涉及到灵活和自由扩展性, 暂时没有加入联表等复杂查询的封装, 可以使用原生查询来完成这些工作.
 2. 建议使用pdo方式, 提高数据操作的安全性
 
 ## 清晰的模板分配
-```
+```php
+<?php
 view::make('home.test')
     ->with('name', 'fizzday')
     ->withAge(26);
