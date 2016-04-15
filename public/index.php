@@ -11,6 +11,9 @@ define("PUBLIC_PATH", __DIR__."/");
 // 根目录
 define("BASE_PATH", PUBLIC_PATH."../");
 
+// 配置文件目录
+define("CONFIG_PATH", BASE_PATH."config/");
+
 // 模板目录
 define("VIEW_PATH", BASE_PATH."app/Views/");
 

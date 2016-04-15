@@ -66,21 +66,24 @@ class FizzView
         $data = static::$data;
         $return = static::$return;
 
-        // 分配变量
-        extract($data);               // 抽取数组中的变量
-        ob_end_clean ();              //关闭顶层的输出缓冲区内容
-        ob_start ();                  // 开始一个新的缓冲区
-        require $viewPath;                //加载解析后的文件
-        $content = ob_get_contents ();// 获得缓冲区的内容
-        ob_end_clean ();              // 关闭缓冲区
-        ob_start();                   //开始新的缓冲区，给后面的程序用
+        if ($viewPath) {
+            // 分配变量
+            extract($data);               // 抽取数组中的变量
+            ob_end_clean ();              //关闭顶层的输出缓冲区内容
+            ob_start ();                  // 开始一个新的缓冲区
+            require $viewPath;                //加载解析后的文件
+            $content = ob_get_contents ();// 获得缓冲区的内容
+            ob_end_clean ();              // 关闭缓冲区
+            ob_start();                   //开始新的缓冲区，给后面的程序用
 
-        // 重置变量
-        static::reset();
+            // 重置变量
+            static::reset();
 
-        // 处理返回
-        if ($return) return $content;       // 返回文本。
-        else echo $content;
+            // 处理返回
+            if ($return) return $content;       // 返回文本。
+            else echo $content;
+        }
+
     }
 
     /**

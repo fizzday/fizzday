@@ -14,3 +14,47 @@ function start_with($word, $str)
     }
     return false;
 }
+
+/**
+ * 载入文件
+ * @param string $name
+ * @param string $path
+ * @return mixed
+ */
+function load($name='database', $path='')
+{
+    if (empty($path)) {
+        $path = 'BASE_PATH'.'config/';
+    }
+    return require rtrim($path, '/').'/'.$name.'.php';
+}
+
+/**
+ * 给表名或字段名添加反引号
+ * @param string $tab
+ * @return string
+ */
+function addQuotes($tab = '')
+{
+    if ($tab) return '`'.$tab.'`';
+}
+
+/**
+ * 格式化打印, 并终止
+ */
+function dd($data)
+{
+    echo '<pre>';
+    print_r($data);
+    echo '</pre>';
+    exit;
+}
+/**
+ * 格式化打印, 不终止
+ */
+function v($data)
+{
+    echo '<pre>';
+    print_r($data);
+    echo '</pre>';
+}
