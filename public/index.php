@@ -23,8 +23,9 @@ require BASE_PATH."vendor/autoload.php";
 // 加载系统总配置文件
 $config = require BASE_PATH."config/config.php";
 
-// 方便直接使用 View 加载模板, 不用输入完整的命名空间路径
+// 方便直接使用 View 加载模板, db 操作数据库, 不用输入完整的命名空间路径
 class_alias('Fizzday\View\FizzView', 'View');
+class_alias('Fizzday\Database\db', 'db');
 
 // 加载路由文件
 require BASE_PATH."app/routes.php";

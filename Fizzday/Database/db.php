@@ -42,6 +42,8 @@ class db
 
     protected static $lastSql = '';
 
+    protected static $transaction = '';
+
     public static function lastSql()
     {
         return static::$lastSql;
@@ -66,7 +68,7 @@ class db
         if ($res) $res = $stmt->fetchAll(PDO::FETCH_OBJ);
 
         // 初始化
-        self::reset($sql);
+        static::reset($sql.' , '.json_encode(static::$bindValue));
 
         return $res;
     }
@@ -89,7 +91,7 @@ class db
         $res = $stmt->execute($param);
 
         // 初始化
-        self::reset($sql);
+        static::reset($sql.' , '.json_encode(static::$bindValue));
 
         return $res;
     }
@@ -138,8 +140,8 @@ class db
         if ($tab) {
             if (is_array($tab)) $condition = $tab;
             else {
-                if (is_numeric($tab)) $condition = [static::$pk['key'], '=', $tab];
-                else static::table($tab, false);
+                if (static::tableExists($tab)) static::table($tab, false);
+                else $condition = [static::$pk['key'], '=', $tab];
             }
         }
 
@@ -162,9 +164,33 @@ class db
         }
 
         // 初始化
-        self::reset($sql);
+        static::reset($sql.' , '.json_encode(static::$bindValue));
 
         return $res;
+    }
+
+    public static function tableExists($tab)
+    {
+        if ($tab) {
+            $sql = "SHOW TABLES LIKE ? ";
+
+            if (empty(static::$pdo)) static::getConnection('', false);
+
+            $stmt = static::$pdo->prepare($sql);
+
+            $res = $stmt->execute([$tab]);
+
+            if ($res) {
+                $res = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                // 初始化
+                static::reset($sql.' , '.json_encode([$tab]));
+
+                if ($res) return true;
+                else return false;
+            }
+        }
+        die('表名不能为空');
     }
 
     /**
@@ -192,7 +218,7 @@ class db
 
         if ($res)  $res = $stmt->fetchAll(PDO::FETCH_OBJ);
         // 初始化
-        self::reset($sql);
+        static::reset($sql.' , '.json_encode(static::$bindValue));
 
         return $res;
     }
@@ -242,7 +268,7 @@ class db
         $res = $stmt->execute(static::$bindValue);
 
         // 初始化
-        self::reset($sql);
+        self::reset($sql.', '.static::$bindValue);
 
         return $res;
     }
@@ -287,7 +313,7 @@ class db
         $res = $stmt->execute(static::$bindValue);
 
         // 初始化
-        self::reset($sql);
+        static::reset($sql.' , '.json_encode(static::$bindValue));
 
         return $res;
     }
@@ -321,7 +347,7 @@ class db
         $res = $stmt->execute(static::$bindValue);
 
         // 初始化
-        self::reset($sql);
+        static::reset($sql.' , '.json_encode(static::$bindValue));
 
         return $res;
     }
@@ -491,6 +517,32 @@ class db
     }
 
     /**
+     * 事务操作
+     * @param $tracs closer:  function(){ User::update(['username'=>'fizzday'], ['id'=>3]); }
+     */
+    public static function transaction($tracs)
+    {
+        // 启用事务
+        static::$transaction = 1;
+
+        if (empty(static::$pdo)) static::getConnection('', false);
+        try{
+            static::$pdo->beginTransaction();
+            if (call_user_func($tracs)) {
+                static::$transaction = '';
+                static::$pdo->commit();
+                return 1;
+            }
+        }catch(Exception $e){
+            static::$pdo->rollBack();
+
+            static::$transaction = '';
+
+            echo "Failed: " . $e->getMessage();
+        }
+    }
+
+    /**
      * 构建sql语句前, 检查表名是否定义
      */
     private static function checkTable()
@@ -552,7 +604,7 @@ class db
         static::$orWhere = '';
 
         static::$sqlSelect = array(
-            'fields' => '*',
+            'fields' => '',
             'group' => '',
             'order' => '',
             'limit' => ''

@@ -34,7 +34,7 @@ class FizzRoute
      */
     public static function __callstatic($method, $params)
     {
-        $uri = self::$baseroute.$params[0];
+        $uri = self::$baseroute.ltrim($params[0], '/');
         $callback = $params[1];
 
         if ( $method == 'any' ) {
