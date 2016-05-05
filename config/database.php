@@ -14,7 +14,7 @@ $config['db']['default'] = [
 
 $config['db']['default2'] = [
     'driver'    => 'pdo',
-    'host'      => '203.88.163.89',
+    'host'      => '203.88.163.189',
     'dbname'    => 'fizzday',
     'username'  => 'fizz',
     'password'  => '123456',

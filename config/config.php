@@ -11,6 +11,12 @@ $config = [];
 // 是否启用模板
 $config['view'] = 'on';
 
+// 自动加载类
+$config['autoload'] = array(
+    'view'  => 'Fizzday\View\View',
+    'DB'    => 'Fizzday\Database\DB'
+);
+
 
 
 
