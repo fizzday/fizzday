@@ -42,7 +42,7 @@ function addQuotes($tab = '')
 /**
  * 格式化打印, 并终止
  */
-function dd($data)
+function d($data)
 {
     echo '<pre>';
     print_r($data);

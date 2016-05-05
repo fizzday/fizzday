@@ -17,15 +17,9 @@ define("CONFIG_PATH", BASE_PATH."config/");
 // 模板目录
 define("VIEW_PATH", BASE_PATH."app/Views/");
 
-// 加载composer自动化文件
-require BASE_PATH."vendor/autoload.php";
 
-// 加载系统总配置文件
-$config = require BASE_PATH."config/config.php";
+// 请求启动处理文件
+require BASE_PATH . "bootstrap/boot.php";
 
-// 加载路由文件
-require BASE_PATH."app/routes.php";
 
-// 根据配置文件, 判断是否启用模板
-if ($config['view'] == 'on') Fizzday\View\FizzView::run();
 

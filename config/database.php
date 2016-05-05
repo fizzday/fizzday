@@ -1,6 +1,6 @@
 <?php
 
-$config['db']['default'] = [
+$db['default'] = [
     'driver'    => 'pdo',
     'host'      => '127.0.0.1',
     'dbname'    => 'fizzday',
@@ -12,9 +12,9 @@ $config['db']['default'] = [
 ];
 
 
-$config['db']['default2'] = [
+$db['default2'] = [
     'driver'    => 'pdo',
-    'host'      => '203.88.163.189',
+    'host'      => '203.88.163.89',
     'dbname'    => 'fizzday',
     'username'  => 'fizz',
     'password'  => '123456',
@@ -23,4 +23,4 @@ $config['db']['default2'] = [
     'prefix'    => ''
 ];
 
-return $config;
+//return $config;

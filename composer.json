@@ -7,6 +7,10 @@
             "email": "fizzday@yeah.net"
         }
     ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/database": "5.1.*"
+    },
     "autoload": {
         "psr-4": {
             "Fizzday\\": "Fizzday/"
