@@ -14,7 +14,7 @@ $db['default'] = [
 
 $db['default2'] = [
     'driver'    => 'mysql',
-    'host'      => '203.88.163.89',
+    'host'      => '203.88.163.189',
     'database'  => 'fizzday',
     'username'  => 'fizz',
     'password'  => '123456',
