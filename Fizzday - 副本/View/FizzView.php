@@ -49,7 +49,7 @@ class FizzView
                 static::$data[$k] = $v;
             }
         } else static::$data[$key] = $value;
-        
+
         return new static;
     }
 

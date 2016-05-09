@@ -14,7 +14,7 @@ $config = [];
  * off : 关闭调试模式
  * other: 其他(可以是任意的字符), 中断执行
  */
-$config['debug'] = 'development';
+$config['debug'] = 'on';
 
 /**
  * 默认数据库的连接
@@ -48,6 +48,7 @@ $config['autoload'] = array(
  */
 $config['alias'] = array(
     'view'      => 'Fizzday\View\FizzView',
+    'R'         => 'Fizzday\Routing\FizzRoute',
     'DB'        => 'Illuminate\Database\Capsule\Manager',
     'Eloquent'  => 'Illuminate\Database\Eloquent\Model'
 );

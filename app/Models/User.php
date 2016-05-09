@@ -1,8 +1,8 @@
 <?php
 
-use Fizzday\Database\db;
+//use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class User extends db
+class User extends Eloquent
 {
-
+    protected $table='user';
 }

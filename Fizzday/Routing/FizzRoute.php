@@ -28,13 +28,15 @@ class FizzRoute
     public static $error_callback;
 
     public static $baseroute = '';
+    
+    public static $autoView = [];
 
     /**
      * Defines a route w/ callback and method
      */
     public static function __callstatic($method, $params)
     {
-        $uri = self::$baseroute.ltrim($params[0], '/');
+        $uri = empty($params[0])?trim(self::$baseroute, '/').'/':self::$baseroute.trim($params[0], '/');
         $callback = $params[1];
 
         if ( $method == 'any' ) {
@@ -44,7 +46,7 @@ class FizzRoute
             // Track current baseroute
             $curBaseroute = self::$baseroute;
             // Build new baseroute string
-            self::$baseroute = $curBaseroute.$params[0].'/';
+            self::$baseroute = $curBaseroute.trim($params[0], '/').'/';
             // Call the callable
             call_user_func($params[1]);
 
@@ -78,7 +80,7 @@ class FizzRoute
      * $after: Processor After. It will process the value returned by Controller.
      * Example: View@process
      */
-    public static function dispatch($after=null)
+    public static function dispatch()
     {
         $uri = self::detect_uri();
         $method = $_SERVER['REQUEST_METHOD'];
@@ -98,7 +100,7 @@ class FizzRoute
                     //if route is not an object
                     if(!is_object(self::$callbacks[$route])){
                         // 分配控制器
-                        self::matchController($route, $after);
+                        self::matchController($route);
                     } else {
                         //call closure
                         call_user_func(self::$callbacks[$route]);
@@ -121,7 +123,7 @@ class FizzRoute
 
                         if(!is_object(self::$callbacks[$pos])){
                             // 分配控制器
-                            self::matchController($pos, $after, $matched);
+                            self::matchController($pos, $matched);
                         } else {
                             call_user_func_array(self::$callbacks[$pos], $matched);
                         }
@@ -159,7 +161,7 @@ class FizzRoute
         return str_replace(array('//', '../'), '/', trim($uri, '/'));
     }
 
-    private static function matchController($index, $after, $param=[])
+    private static function matchController($index, $param=[])
     {
         //grab all parts based on a / separator
         $parts = explode('/',self::$callbacks[$index]);
@@ -167,17 +169,14 @@ class FizzRoute
         $last = end($parts);
         //grab the controller name and method call
         $segments = explode('@',$last);
+
+        // 保存对应的 class 和 function, 方便自动识别view目录
+        static::$autoView['class'] = $segments[0];
+        static::$autoView['function'] = $segments[1];
+
         //instanitate controller
         $controller = new $segments[0]();
-        //call method
-        $methodName = $segments[1];
-        $return = $controller->$methodName($param);
-
-        if ($after) {
-            $after_segments = explode('@', $after);
-            $afterClassName = $after_segments[0];
-            $afterFunctionName = $after_segments[1];
-            $afterClassName::$afterFunctionName($return);
-        }
+        //call function
+        $controller->$segments[1]($param);
     }
 }

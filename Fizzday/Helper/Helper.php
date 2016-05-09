@@ -16,20 +16,6 @@ function start_with($word, $str)
 }
 
 /**
- * 载入文件
- * @param string $name
- * @param string $path
- * @return mixed
- */
-function load($name='database', $path='')
-{
-    if (empty($path)) {
-        $path = 'BASE_PATH'.'config/';
-    }
-    return require rtrim($path, '/').'/'.$name.'.php';
-}
-
-/**
  * 给表名或字段名添加反引号
  * @param string $tab
  * @return string

@@ -10,7 +10,7 @@ Route::get('test', function(){
     echo "fizzday's route test success";
 });
 
-Route::get('home', 'HomeController@index');
+Route::get('', 'HomeController@index');
 
 Route::get('home/test', 'HomeController@test');
 
