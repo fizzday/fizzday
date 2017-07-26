@@ -1,24 +1,24 @@
 {
-    "name": "fizzday/fizzday",
-    "license": "MIT",
+    "name": "fizz/framework",
     "authors": [
         {
-            "name": "fizzday",
-            "email": "fizzday@yeah.net"
+            "name": "fizz",
+            "email": "864759073@qq.com"
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/database": "5.1.*"
+        "fizzday/fizzhelper": "dev-master",
+        "fizzday/fizzdb": "dev-master",
+        "fizzday/requests": "dev-master",
+        "fizzday/fizzview": "dev-master",
+        "fizzday/fizzroute": "dev-master",
+        "fizzday/fizztraits": "dev-master",
+        "fizzday/fizzmarkdown": "dev-master",
+        "fizzday/fizzjwt": "dev-master"
     },
     "autoload": {
         "psr-4": {
-            "Fizzday\\": "Fizzday/"
-        },
-        "files": ["Fizzday/Helper/Helper.php"],
-        "classmap": [
-            "app/Controllers",
-            "app/Models"
-        ]
+            "App\\": "app/"
+        }
     }
 }

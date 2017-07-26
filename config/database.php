@@ -1,26 +1,44 @@
 <?php
 
-$db['default'] = [
+$config['db_default'] = 'mysql';
+
+$config['mysql'] = [
     'driver'    => 'mysql',
-    'host'      => '127.0.0.1',
-    'database'  => 'fizzday',
+    'host'      => 'localhost',
+    'port'      => 3306,
+    'database'  => 'fizz',
     'username'  => 'fizz',
-    'password'  => '123456',
+    'password'  => 'root',
     'charset'   => 'utf8',
     'collation' => 'utf8_unicode_ci',
-    'prefix'    => '',
+    'prefix'    => 'fizz_',
+//    'read'      => [
+//        'host'  => '127.0.0.1'
+//    ],
+//    'write'      => [
+//        'host'  => '127.0.0.1',
+//        'database'  => 'test2',
+//    ]
 ];
 
-
-$db['default2'] = [
+$config['mysql2'] = [
     'driver'    => 'mysql',
-    'host'      => '203.88.163.189',
-    'database'  => 'fizzday',
-    'username'  => 'fizz',
-    'password'  => '123456',
+    'host'      => '192.168.200.248',
+    'port'      => 3306,
+    'database'  => 'test',
+    'username'  => 'test',
+    'password'  => 'test',
     'charset'   => 'utf8',
-    'collation' => 'utf8_general_ci',
-    'prefix'    => ''
+    'collation' => 'utf8_unicode_ci',
+    'prefix'    => 'fd_',
+    'read'      => [
+        'host'      => '192.168.200.248',
+        'database'  => 'test',
+    ],
+    'write'      => [
+        'host'      => '192.168.200.249',
+        'database'  => 'test',
+    ]
 ];
 
-//return $config;
+return $config;

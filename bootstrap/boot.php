@@ -1,74 +1,31 @@
 <?php
+// 项目的源码根目录
+define('BASE_PATH', __DIR__ . '/../');
+// 配置目录
+define('CONF_PATH', BASE_PATH . 'config/');
+// 请求composer入口文件
+require BASE_PATH . 'vendor/autoload.php';
+// 路由目录
+define('ROUTE_PATH', BASE_PATH.config('config.path.route').'/');
+// 缓存目录
+define('CACHE_PATH', BASE_PATH.config('config.path.cache').'/');
 
-// 加载系统总配置文件
-require BASE_PATH."config/config.php";
+// 取别名, 这样就不需要在 routes/routes.php 中 use FizzRoute 了
+class_alias('\\Fizzday\\FizzRoute\\Route', 'Route');
+// 引入路由
+require ROUTE_PATH . 'route.php';
+// 驱动路由
+Route::dispatch();
 
-/**
- * 检查是否开启调试模式
- */
-define('ENVIRONMENT', isset($config['debug']) ? $config['debug'] : 'on');
+// 驱动DB
+//\Fizzday\Database\DB::run();
 
-switch (ENVIRONMENT)
-{
-    case 'on':
-        error_reporting(-1);
-        ini_set('display_errors', 1);
-        break;
+// 模板启用
+if (config('config.switch.view') == 'on') {
+    // 模板目录
+    define('VIEW_PATH', BASE_PATH.config('config.path.view').'/');
 
-    case 'off':
-        ini_set('display_errors', 0);
-        if (version_compare(PHP_VERSION, '5.3', '>='))
-        {
-            error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
-        }
-        else
-        {
-            error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
-        }
-        break;
-
-    default:
-        header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
-        echo 'The application environment is not set correctly.';
-        exit(1); // EXIT_ERROR
+    class_alias('\\Fizzday\\FizzView\\View', 'View');
+    // 驱动模板
+    View::run();
 }
-
-
-
-
-// 加载composer自动化文件
-require BASE_PATH."vendor/autoload.php";
-
-
-/**
- * 检查是否启用db操作
- */
-
-if ($config['db'] == 'on') {
-    
-    require BASE_PATH.'bootstrap/bootDB.php';
-
-}
-
-
-/**
- * 检查是否有类取别名
- */
-
-if (!empty($config['alias'])) {
-
-    foreach ($config['alias'] as $k => $v) {
-
-        class_alias($v, $k);
-
-    }
-
-}
-
-
-
-// 加载路由文件
-require BASE_PATH."app/routes.php";
-
-// 根据配置文件, 判断是否启用模板, 并最终渲染模板
-if ($config['view'] == 'on') Fizzday\View\FizzView::run();

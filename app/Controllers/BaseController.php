@@ -1,17 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fizz
- * Date: 2016/4/25
- * Time: 20:57
- */
+namespace App\Controllers;
+
+use Fizzday\Requests\Request;
 
 class BaseController
 {
     public function __construct()
     {
-        // 方便直接使用 View 加载模板, db 操作数据库, 不用输入完整的命名空间路径
-//        class_alias('Fizzday\View\FizzView', 'View');
-//        class_alias('Fizzday\Database\db', 'db');
+        // 是否记录log
+        if (config('config.switch.log')=='on') {
+            // 记录下log
+            $log = [];
+            $log['token'] = Request::header('token');
+            $log['param'] = Request::all();
+
+            file_set('log/'.date('Ymd').'.txt', $_SERVER['REQUEST_URI']."    ".date("Y-m-d H:i:s").PHP_EOL.json_encode($log).PHP_EOL);
+        }
     }
 }

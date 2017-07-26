@@ -1,8 +1,29 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: fizz
+ * Date: 2017/7/2
+ * Time: 19:29
+ */
 
-//use Illuminate\Database\Eloquent\Model as Eloquent;
+namespace App\Models;
 
-class User extends Eloquent
+
+use Fizzday\FizzDB\DB;
+
+class User
 {
-    protected $table='user';
+    public static function getInfo($mobile)
+    {
+        $info = DB::table('users')->where('mobile', $mobile)->first();
+
+        if (!$info) return failReturn();
+
+        $return = [];
+        $return['mobile'] = $mobile;
+        $return['money'] = $info->money;
+        $return['task'] = DB::table('user_task')->where('mobile', $mobile)->where('status', 3)->count();
+
+        return successReturn($return);
+    }
 }
