@@ -7,7 +7,7 @@ class BaseController
 {
     public function __construct()
     {
-        // 是否记录log
+        // 是否记录请求log
         if (config('config.switch.log')=='on') {
             // 记录下log
             $log = [];

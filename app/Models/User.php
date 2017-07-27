@@ -15,7 +15,7 @@ class User
 {
     public static function getInfo($mobile)
     {
-        $info = DB::table('users')->where('mobile', $mobile)->first();
+        $info = DB::table('users')->fields('money')->where('mobile', $mobile)->first();
 
         if (!$info) return failReturn();
 

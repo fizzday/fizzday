@@ -11,7 +11,7 @@
         "fizzday/fizzdb": "dev-master",
         "fizzday/requests": "dev-master",
         "fizzday/fizzview": "dev-master",
-        "fizzday/fizzroute": "dev-master",  
+        "fizzday/fizzroute": "dev-master",
         "fizzday/fizzjwt": "dev-master"
     },
     "autoload": {

@@ -7,11 +7,11 @@ use Fizzday\FizzJWT\FizzJWT;
 use Fizzday\FizzView\View;
 use Fizzday\Requests\Request;
 
-class HomeController
+class HomeController extends BaseController
 {
     public function index()
     {
-        echo 'welcome home page';
+        show_msg('welcome home page');
     }
 
     public function test_xss(Request $request)
@@ -26,7 +26,7 @@ class HomeController
     public function test_view(Request $request)
     {
 //        $all = Request::input('a');
-        View::make('test2')->withA($request->a);
+        View::make('test_view')->withA($request->a);
 
 //        dd($request->a);
     }
