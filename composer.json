@@ -3,7 +3,7 @@
     "authors": [
         {
             "name": "fizz",
-            "email": "864759073@qq.com"
+            "email": "fizzday@yeah.net"
         }
     ],
     "require": {
@@ -12,7 +12,6 @@
         "fizzday/requests": "dev-master",
         "fizzday/fizzview": "dev-master",
         "fizzday/fizzroute": "dev-master",
-        "fizzday/fizztraits": "dev-master",
         "fizzday/fizzmarkdown": "dev-master",
         "fizzday/fizzjwt": "dev-master"
     },
